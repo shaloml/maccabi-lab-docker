@@ -1,0 +1,10 @@
+docker network create -d bridge --subnet 10.0.0.1/24 ps-bridge
+
+docker inspect ps-bridge
+
+docker run -dt --name c1 --network db-layer alpine sleep 1d
+docker run -dt --name c2 --network ps-bridge alpine sleep 1d 
+ docker inspect ps-bridge
+ docker exec -it c1 sh
+ ip a
+ ping 10.0.0.3

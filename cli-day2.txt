@@ -1,0 +1,82 @@
+docker system info
+
+// show manifast
+docker image ls --digests
+
+//
+docker image inspect alpine
+ 
+docker run --rm -it mcr.microsoft.com/dotnet/core/runtime:3.1 dotnet --list-runtimes
+
+docker image build -t shalom-node https://github.com/shaloml/node-docker-sample.git
+
+
+
+docker container exec -it 70af28a5545e sh
+
+
+docker logs 16475e1f2815
+
+
+docker run -itd --rm -p 8000:80 --name aspnetcore_sample mcr.microsoft.com/dotnet/core/samples:aspnetapp
+
+ocker run -d --name devtest -v myvol2:/app nginx:latest
+
+docker container exec -it 6a25541cb9d8  sh
+
+docker run -itd --rm -p 8000:80 -v C:\log\ex:/log testvol 
+
+network
+docker network create -d bridge --subnet 10.0.0.1/24 ps-bridge
+
+docker inspect ps-bridge
+
+docker run -dt --name c1 --network db-layer alpine sleep 1d
+docker run -dt --name c2 --network ps-bridge alpine sleep 1d 
+ docker inspect ps-bridge
+ docker exec -it c1 sh
+ ip a
+ ping 10.0.0.3
+ 
+ 
+ docker container rm $(docker container ls -aq) -f
+
+
+
+ 
+ docker network create -d bridge --subnet 10.100.0.1/24 db-layer
+ docker network create -d bridge --subnet 10.200.0.1/24 app-layer
+
+ docker run -idt --name my-mongo  --network db-layer mongo --serviceExecutor adaptive
+ 
+ docker run -idt --name my-db  -p 8888:8080 --network=db-layer -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=shalom!levi123456'  mcr.microsoft.com/mssql/server:2019-latest
+ 
+###docker run --name my-db -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SecretP@ssw0rd' hostname my-db -p 1401:1433 -v c:\sqlvolume:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2017-CU10-ubuntu
+docker run --name my-db -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SecretP@ssw0rd' -d -p 1401:1433 --network=db-layer -v c:/sqlvolume:/var/opt/mssql mcr.microsoft.com/mssql/server:2017-CU10-ubuntu
+
+ docker exec -it my-db /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P SecretP@ssw0rd
+ 
+ docker image build -t myapp-net .
+ docker create --network=app-layer --name=my-app -v c:\logs:/logs -p:8000:80  myapp-net
+ 
+docker network connect db-layer my-app 
+
+apt-get update
+apt-get install iputils-ping
+
+
+sqlcmd '-Usa' '-Slocalhost,1401' '-Q"SELECT @@VERSION"' '-PSecretP@ssw0rd'
+
+1
+2
+3
+ 
+sqlcmd '-Usa' '-Slocalhost,1401' '-Q"SELECT @@VERSION"' '-PSecretP@ssw0rd'
+ 
+
+
+
+ 
+ 
+
+

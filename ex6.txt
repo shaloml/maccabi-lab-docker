@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  exercise:
+    image: ${DOCKER_REGISTRY-}exercise
+    container_name: my-app
+    build:
+      context: .
+      dockerfile: exercise/Dockerfile
+    networks:
+       - db-layer1
+       - app-layer1
+    ports:
+      - 8000:80
+    volumes:
+      - type: bind 
+        source: c:\logs
+        target: /logs
+  my_db:
+    image:  mcr.microsoft.com/mssql/server:2019-latest
+    container_name: my-db
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=SecretP@ssw0rd
+        - MSSQL_PID=Developer
+    networks:
+       - db-layer1
+    volumes: 
+      - type: bind 
+        source: c:/sqlvolume/data1
+        target: /var/opt/mssql/data
+      - type: bind 
+        source: c:/sqlvolume/log1
+        target: /var/opt/mssql/log
+networks:
+  db-layer1:
+  app-layer1:
+  
